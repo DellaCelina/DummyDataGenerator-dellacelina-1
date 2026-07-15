@@ -1,4 +1,4 @@
-#include "ddg/GeneratorRegistry.h"
+﻿#include "ddg/GeneratorRegistry.h"
 
 #include "ddg/Generators.h"
 

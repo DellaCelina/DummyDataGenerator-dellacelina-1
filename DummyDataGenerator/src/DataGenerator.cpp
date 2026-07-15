@@ -1,4 +1,4 @@
-#include "ddg/DataGenerator.h"
+﻿#include "ddg/DataGenerator.h"
 
 #include <fstream>
 #include <stdexcept>

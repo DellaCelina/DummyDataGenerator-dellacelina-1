@@ -1,4 +1,4 @@
-# 아키텍처 설계 (ARCHITECTURE)
+﻿# 아키텍처 설계 (ARCHITECTURE)
 
 ## 1. 설계 목표
 

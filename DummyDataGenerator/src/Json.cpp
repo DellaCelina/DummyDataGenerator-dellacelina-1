@@ -1,4 +1,4 @@
-#include "ddg/Json.h"
+﻿#include "ddg/Json.h"
 
 #include <sstream>
 #include <cmath>
@@ -13,7 +13,7 @@ namespace {
 // throws JsonParseException with a character offset on any malformed input.
 class Parser {
 public:
-    explicit Parser(const std::string& text) : text_(text) {}
+    explicit Parser(const std::string& text, size_t startPos = 0) : text_(text), pos_(startPos) {}
 
     JsonValue Parse() {
         SkipWhitespace();
@@ -387,7 +387,12 @@ std::string JsonValue::Dump(int indent) const {
 }
 
 JsonValue JsonValue::Parse(const std::string& text) {
-    Parser parser(text);
+    // Tolerate a leading UTF-8 BOM (0xEF 0xBB 0xBF): schema files saved by
+    // Visual Studio as "UTF-8 with signature" carry one, and JSON itself has
+    // no concept of a byte-order mark.
+    static constexpr char kBom[] = "\xEF\xBB\xBF";
+    size_t start = (text.compare(0, 3, kBom) == 0) ? 3 : 0;
+    Parser parser(text, start);
     return parser.Parse();
 }
 

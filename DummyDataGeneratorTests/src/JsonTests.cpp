@@ -1,4 +1,4 @@
-#include "TestFramework.h"
+﻿#include "TestFramework.h"
 #include "ddg/Json.h"
 
 using ddg::json::JsonValue;

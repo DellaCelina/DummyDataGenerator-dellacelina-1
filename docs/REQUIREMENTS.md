@@ -1,4 +1,4 @@
-# 요구사항 명세 (REQUIREMENTS)
+﻿# 요구사항 명세 (REQUIREMENTS)
 
 ## 1. 배경
 

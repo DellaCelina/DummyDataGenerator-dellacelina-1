@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "UserProfile",
   "fields": [
     { "name": "userId", "type": "string", "pattern": "U-[0-9]{6}", "unique": true },

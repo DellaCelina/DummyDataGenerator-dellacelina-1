@@ -1,4 +1,4 @@
-#include "ddg/Generators.h"
+﻿#include "ddg/Generators.h"
 
 #include "ddg/GeneratorRegistry.h"
 #include "ddg/RegexStringGenerator.h"

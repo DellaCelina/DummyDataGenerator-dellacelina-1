@@ -1,4 +1,4 @@
-#include "TestFramework.h"
+﻿#include "TestFramework.h"
 #include "ddg/GeneratorRegistry.h"
 
 #include <cmath>

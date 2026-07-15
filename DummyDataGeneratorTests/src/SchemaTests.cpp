@@ -1,4 +1,4 @@
-#include "TestFramework.h"
+﻿#include "TestFramework.h"
 #include "ddg/Schema.h"
 
 using ddg::FieldSchema;

@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "SemiconductorSample",
   "fields": [
     { "name": "sampleId", "type": "string", "pattern": "S-\\d{3}", "unique": true },

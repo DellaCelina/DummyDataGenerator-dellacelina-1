@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 // Minimal, dependency-free unit test framework. DummyDataGenerator is a
 // PoC-scale C++ project with no package manager wired up, so rather than

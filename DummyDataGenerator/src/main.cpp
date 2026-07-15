@@ -1,4 +1,4 @@
-#include "ddg/DataGenerator.h"
+﻿#include "ddg/DataGenerator.h"
 #include "ddg/GeneratorRegistry.h"
 #include "ddg/Json.h"
 #include "ddg/Schema.h"

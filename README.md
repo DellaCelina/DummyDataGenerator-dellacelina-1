@@ -1,4 +1,4 @@
-# DummyDataGenerator
+﻿# DummyDataGenerator
 
 JSON 스키마로 필드의 타입/범위/정규 표현식 등을 정의하면, 그 정의에 맞는 랜덤 더미 데이터를
 JSON으로 생성해 주는 범용 C++20 라이브러리 & CLI 도구입니다.

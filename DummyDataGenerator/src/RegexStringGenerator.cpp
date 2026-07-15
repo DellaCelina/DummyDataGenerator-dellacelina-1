@@ -1,4 +1,4 @@
-#include "ddg/RegexStringGenerator.h"
+﻿#include "ddg/RegexStringGenerator.h"
 
 #include <cctype>
 #include <string>
