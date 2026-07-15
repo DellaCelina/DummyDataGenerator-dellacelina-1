@@ -1,0 +1,32 @@
+{
+  "name": "SemiconductorSample",
+  "fields": [
+    { "name": "sampleId", "type": "string", "pattern": "S-\\d{3}", "unique": true },
+    {
+      "name": "sampleName",
+      "type": "string",
+      "pattern": "(Silicon Wafer|GaN Epitaxial|SiC Power|Photoresist)-[0-9]{1,2}(inch|mm)"
+    },
+    { "name": "avgProductionTimeMin", "type": "double", "min": 0.1, "max": 2.0, "decimalPlaces": 2 },
+    { "name": "yield", "type": "double", "min": 0.7, "max": 0.99, "decimalPlaces": 2 },
+    { "name": "stock", "type": "int", "min": 0, "max": 1000 },
+    { "name": "status", "type": "enum", "values": ["RESERVED", "CONFIRMED", "PRODUCING", "RELEASE"] },
+    { "name": "registeredAt", "type": "date", "min": "2025-01-01", "max": "2026-12-31" },
+    { "name": "note", "type": "string", "pattern": "[a-z]{5,10}", "nullable": true, "nullProbability": 0.3 },
+    {
+      "name": "tags",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "items": { "type": "string", "pattern": "[a-z]{3,6}" }
+    },
+    {
+      "name": "customer",
+      "type": "object",
+      "fields": [
+        { "name": "company", "type": "string", "pattern": "[A-Z][a-z]{3,7} (Labs|Fab|Research)" },
+        { "name": "vip", "type": "bool", "trueProbability": 0.2 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "UserProfile",
+  "fields": [
+    { "name": "userId", "type": "string", "pattern": "U-[0-9]{6}", "unique": true },
+    { "name": "email", "type": "string", "pattern": "[a-z]{4,8}\\.[a-z]{4,8}@(gmail|outlook|company)\\.com" },
+    { "name": "age", "type": "int", "min": 14, "max": 90 },
+    { "name": "isActive", "type": "bool", "trueProbability": 0.85 },
+    { "name": "signupDate", "type": "date", "min": "2020-01-01", "max": "2026-07-15", "format": "%Y/%m/%d" },
+    { "name": "plan", "type": "enum", "values": ["free", "pro", "enterprise"] },
+    { "name": "nickname", "type": "string", "minLength": 4, "maxLength": 10 },
+    {
+      "name": "roles",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "items": { "type": "enum", "values": ["admin", "editor", "viewer"] }
+    },
+    {
+      "name": "address",
+      "type": "object",
+      "fields": [
+        { "name": "city", "type": "enum", "values": ["Seoul", "Busan", "Incheon", "Daegu"] },
+        { "name": "zipCode", "type": "string", "pattern": "\\d{5}" }
+      ]
+    }
+  ]
+}
