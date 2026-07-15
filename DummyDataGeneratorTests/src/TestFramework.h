@@ -50,11 +50,18 @@ struct Registrar {
         }                                                                                \
     } while (false)
 
+// NOTE: (actual) and (expected) are compared within a single full-expression
+// on purpose. Splitting them into separate `auto&&` bindings across
+// statements (as an earlier version of this macro did) is unsafe: many
+// accessors here (JsonValue::AsString/At/AsArray/...) return a reference into
+// an object that may itself be a temporary (e.g. JsonValue::Parse(...).AsString()).
+// A reference bound to such a nested temporary is NOT lifetime-extended past
+// the end of the statement that created it, so reading it from a later
+// statement is undefined behavior. Keeping everything in one `if` condition
+// keeps any such temporaries alive for the whole comparison.
 #define DDG_CHECK_EQ(actual, expected)                                                  \
     do {                                                                                \
-        auto&& ddg_actual_ = (actual);                                                 \
-        auto&& ddg_expected_ = (expected);                                             \
-        if (!(ddg_actual_ == ddg_expected_)) {                                          \
+        if (!((actual) == (expected))) {                                                \
             throw ddg::test::AssertionFailure(                                          \
                 std::string("CHECK_EQ failed: ") + #actual + " != " + #expected +       \
                 " (" + __FILE__ + ":" + std::to_string(__LINE__) + ")");                \

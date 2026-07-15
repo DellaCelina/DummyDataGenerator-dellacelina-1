@@ -2,7 +2,24 @@
 
 #include "ddg/Generators.h"
 
+#include <algorithm>
+#include <cctype>
+
 namespace ddg {
+
+namespace {
+// FieldSchema always lowercases a field's "type" before it is ever seen here
+// (see FieldSchema::FieldSchema), so type names are normalized the same way
+// on registration/lookup. Without this, registry.Register("UUID", ...) would
+// silently never match a schema field written as "type": "uuid" (or vice
+// versa), which is an easy trap for a registry meant to be extended by
+// callers.
+std::string NormalizeTypeName(std::string typeName) {
+    std::transform(typeName.begin(), typeName.end(), typeName.begin(),
+                    [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+    return typeName;
+}
+} // namespace
 
 GeneratorRegistry::GeneratorRegistry() {
     Register("int", std::make_shared<IntGenerator>());
@@ -23,7 +40,7 @@ void GeneratorRegistry::Register(const std::string& typeName, std::shared_ptr<IV
     if (!generator) {
         throw std::invalid_argument("GeneratorRegistry::Register: generator must not be null");
     }
-    generators_[typeName] = std::move(generator);
+    generators_[NormalizeTypeName(typeName)] = std::move(generator);
 }
 
 void GeneratorRegistry::Register(const std::string& typeName, LambdaValueGenerator::Func fn) {
@@ -31,11 +48,11 @@ void GeneratorRegistry::Register(const std::string& typeName, LambdaValueGenerat
 }
 
 bool GeneratorRegistry::IsRegistered(const std::string& typeName) const {
-    return generators_.find(typeName) != generators_.end();
+    return generators_.find(NormalizeTypeName(typeName)) != generators_.end();
 }
 
 const IValueGenerator& GeneratorRegistry::Resolve(const std::string& typeName) const {
-    auto it = generators_.find(typeName);
+    auto it = generators_.find(NormalizeTypeName(typeName));
     if (it == generators_.end()) {
         throw UnknownFieldTypeException("No generator registered for field type '" + typeName + "'");
     }

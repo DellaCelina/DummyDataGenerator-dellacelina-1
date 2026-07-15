@@ -10,7 +10,24 @@
 #include <sstream>
 #include <string>
 
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#endif
+
 namespace {
+
+#ifdef _WIN32
+// Source files (and thus narrow string/console output literals) are UTF-8.
+// The classic Windows console defaults to the system ANSI codepage
+// regardless of that, so without this, Korean text prints as mojibake in
+// cmd.exe / conhost (Windows Terminal and most modern terminals already
+// assume UTF-8 and are unaffected either way).
+void EnableUtf8Console() {
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+}
+#endif
 
 void PrintUsage(const char* argv0) {
     std::cout
@@ -130,6 +147,9 @@ int RunFromArgs(int argc, char** argv) {
 } // namespace
 
 int main(int argc, char** argv) {
+#ifdef _WIN32
+    EnableUtf8Console();
+#endif
     if (argc >= 2 && (std::string(argv[1]) == "-h" || std::string(argv[1]) == "--help")) {
         PrintUsage(argv[0]);
         return 0;

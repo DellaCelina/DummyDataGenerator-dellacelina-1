@@ -30,7 +30,10 @@ public:
     GeneratorRegistry();
 
     // Registers `generator` under `typeName`, overwriting any existing
-    // generator registered for that name (including built-ins).
+    // generator registered for that name (including built-ins). Type names
+    // are matched case-insensitively (normalized the same way FieldSchema
+    // normalizes a field's "type"), so "UUID" and "uuid" resolve to the
+    // same entry.
     void Register(const std::string& typeName, std::shared_ptr<IValueGenerator> generator);
 
     // Convenience overload for registering a lambda directly.
